@@ -13,9 +13,40 @@ import { SizeConfig } from "../constants/size-config";
 import { COLORS } from "../constants/colors";
 import { ScrollView } from 'react-native-gesture-handler';
 import OfferCombo from "./re-components/offerCompo";
+import { useDispatch, useSelector } from 'react-redux';
+
+import * as offerAction from '../redux/action/offerAction';
 
 
 const OfferScreen = ({ navigation }) => {
+  const dispatch = useDispatch();
+
+  const createCodeReducer = useSelector(
+    (state) => state.createCodeReducer,
+  );
+
+  useEffect(() => {
+    dispatch(offerAction.BestCodeAction(onSuccess, onError));
+
+    // console.log("bestSeller: ", bestSeller);
+  }, [onSuccess]);
+
+  const onSuccess = (res) => {
+
+  };
+  const onError = (message) => {
+    console.log(message);
+
+  };
+
+  const [items, setItems] = useState([]);
+  React.useEffect(() => {
+    // console.log("yayy: ",createCodeReducer);
+    setItems(createCodeReducer.data.product);
+    // console.log("home1: ",createBestSellerReducer.data.product);
+  }, [createCodeReducer.data.product]);
+
+  console.log("itemsOffer: ", items);
 
   //   useEffect(() => {
   //     setTimeout(() => {
@@ -40,16 +71,17 @@ const OfferScreen = ({ navigation }) => {
         <Text style={styles.titleText}>Bhanu Pharmacy Coupons/Offers</Text>
       </View>
       <ScrollView showsVerticalScrollIndicator={false}>
-        <View style={styles.imageCompo}>
-          <OfferCombo />
-        </View>
-        <View style={styles.imageCompo}>
-          <OfferCombo />
-        </View>
-        <View style={styles.imageCompo}>
-          <OfferCombo />
-        </View>
-
+        {!createCodeReducer.loading &&
+          items?.map((item, index) => {
+            return (
+              <View style={styles.imageCompo}>
+                <OfferCombo
+                  key={index.toString()}
+                  code={item.code}
+                />
+              </View>
+            );
+          })}
       </ScrollView>
     </SafeAreaView>
   );

@@ -4,7 +4,7 @@ import { SizeConfig } from "../../constants/size-config";
 import { COLORS } from "../../constants/colors";
 
 
-const OfferCombo = ({ navigation }) => {
+const OfferCombo = ({ navigation,code }) => {
 
     return (
         <View style={styles.container}>
@@ -17,7 +17,7 @@ const OfferCombo = ({ navigation }) => {
                 <View style={styles.footerContentContainer}>
                     <View style={styles.codeTextContainer}>
                         <Text style={styles.couponText}>Coupons Code</Text>
-                        <Text style={styles.couponCodeText}>COUPONS 123</Text>
+                        <Text style={styles.couponCodeText}>{code}</Text>
                     </View>
                     <View style={styles.codeTextBtnContainer}>
                         <TouchableOpacity>

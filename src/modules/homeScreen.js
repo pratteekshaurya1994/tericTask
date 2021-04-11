@@ -28,18 +28,45 @@ const HomeScreen = ({ navigation }) => {
 
     const dispatch = useDispatch();
 
+    const createBestSellerReducer = useSelector(
+        (state) => state.createBestSellerReducer,
+    );
+    const createFeatureBrandReducer = useSelector(
+        (state) => state.createFeatureBrandReducer,
+    );
+
     useEffect(() => {
         dispatch(homeAction.BestSellerAction(onSuccess, onError));
-    }, []);
+        dispatch(homeAction.FeatureBrandAction(onSuccess, onError));
 
-    const onSuccess = () => {
-        // console.log(params.productName);
-        // setLoading(false);
+        // console.log("bestSeller: ", bestSeller);
+    }, [onSuccess]);
+
+    const onSuccess = (res) => {
+
     };
     const onError = (message) => {
         console.log(message);
-        // setLoading(false);
+
     };
+
+    const [items, setItems] = useState([]);
+    React.useEffect(() => {
+        // console.log(createBestSellerReducer);
+        setItems(createBestSellerReducer.data.product);
+        // console.log("home1: ",createBestSellerReducer.data.product);
+    }, [createBestSellerReducer.data.product]);
+
+    console.log("items: ", items);
+
+    const [featureBrand, setFeatureBrand] = useState([])
+    React.useEffect(() => {
+        console.log(createFeatureBrandReducer);
+        setFeatureBrand(createFeatureBrandReducer.data.product);
+        // console.log("home1: ",createBestSellerReducer.data.product);
+    }, [createFeatureBrandReducer.data.product]);
+
+    console.log("featureBrand: ", featureBrand);
 
     return (
         <SafeAreaView style={styles.safeAreaView}>
@@ -105,19 +132,36 @@ const HomeScreen = ({ navigation }) => {
                         <Text style={styles.viewAllText}>View All</Text>
                     </View>
                     <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-                        <BestSellerCovidComponent title="Whole Wheat Grass Juice" />
-                        <BestSellerCovidComponent title="Whole Wheat Grass Juice" />
-                        <BestSellerCovidComponent title="Whole Wheat Grass Juice" />
-                        <BestSellerCovidComponent title="Whole Wheat Grass Juice" />
+                        {!createBestSellerReducer.loading &&
+                            items?.map((itemBest, index) => {
+                                return (
+                                    <BestSellerCovidComponent
+                                        key={index.toString()}
+                                        name={itemBest.name}
+                                        price={itemBest.price}
+                                        pack={itemBest.pack}
+                                        discount={itemBest.discount}
+                                        rating={itemBest.rating}
+                                        ratingNumber={itemBest.ratingNumber}
+                                    />
+                                );
+                            })}
                     </ScrollView>
                 </View>
                 <View style={styles.combineContainer}>
                     <View style={styles.featuredPopularContainer}>
                         <Text style={styles.featuredPopularTitleText}>Featured Brands</Text>
                         <ScrollView style={{ flexDirection: "row" }} horizontal={true} showsHorizontalScrollIndicator={false}>
-                            <FeaturedPopularComponent title="Dabur" />
-                            <FeaturedPopularComponent title="Dabur" />
-                            <FeaturedPopularComponent title="Dabur" />
+                            {!createFeatureBrandReducer.loading &&
+                                featureBrand?.map((item, index) => {
+                                    return (
+                                        <FeaturedPopularComponent
+                                            key={index.toString()}
+                                            name={item.name}
+                                            discount={item.discount}
+                                        />
+                                    );
+                                })}
                         </ScrollView>
                     </View>
                     <View style={styles.adContainer}>
@@ -126,9 +170,16 @@ const HomeScreen = ({ navigation }) => {
                     <View style={styles.featuredPopularContainer}>
                         <Text style={styles.featuredPopularTitleText}>Popular Categories</Text>
                         <ScrollView style={{ flexDirection: "row" }} horizontal={true} showsHorizontalScrollIndicator={false}>
-                            <FeaturedPopularComponent title="Baby Care" />
-                            <FeaturedPopularComponent title="Family" />
-                            <FeaturedPopularComponent title="Devices" />
+                            {!createFeatureBrandReducer.loading &&
+                                featureBrand?.map((item, index) => {
+                                    return (
+                                        <FeaturedPopularComponent
+                                            key={index.toString()}
+                                            name={item.name}
+                                            discount={item.discount}
+                                        />
+                                    );
+                                })}
                         </ScrollView>
                     </View>
 
@@ -139,10 +190,20 @@ const HomeScreen = ({ navigation }) => {
                         <Text style={[styles.viewAllText, { marginTop: SizeConfig.blockHeight * 2 }]}>View All</Text>
                     </View>
                     <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-                        <BestSellerCovidComponent title="Whole Wheat Grass Juice" />
-                        <BestSellerCovidComponent title="Whole Wheat Grass Juice" />
-                        <BestSellerCovidComponent title="Whole Wheat Grass Juice" />
-                        <BestSellerCovidComponent title="Whole Wheat Grass Juice" />
+                        {!createBestSellerReducer.loading &&
+                            items?.map((itemBest, index) => {
+                                return (
+                                    <BestSellerCovidComponent
+                                        key={index.toString()}
+                                        name={itemBest.name}
+                                        price={itemBest.price}
+                                        pack={itemBest.pack}
+                                        discount={itemBest.discount}
+                                        rating={itemBest.rating}
+                                        ratingNumber={itemBest.ratingNumber}
+                                    />
+                                );
+                            })}
                     </ScrollView>
                 </View>
                 <View style={styles.adContainer}>

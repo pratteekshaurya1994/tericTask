@@ -4,7 +4,14 @@ import { SizeConfig } from "../../constants/size-config";
 import { COLORS } from "../../constants/colors";
 
 
-const BestSellerCovidComponent = ({ navigation, title }) => {
+const BestSellerCovidComponent = ({ 
+    navigation, 
+    name, 
+    price, 
+    pack,
+    discount,
+    rating,
+    ratingNumber }) => {
 
     return (
         <View style={styles.container}>
@@ -16,27 +23,27 @@ const BestSellerCovidComponent = ({ navigation, title }) => {
                 />
             </View>
             <View style={styles.contentContainer}>
-                <Text style={styles.title}>{title}</Text>
-                <Text style={styles.kitText}>kit of 6 packs</Text>
+                <Text style={styles.title}>{name}</Text>
+                <Text style={styles.kitText}>kit of {pack} packs</Text>
             </View>
             <View style={styles.ratingMainContainer}>
                 <View style={styles.ratingContainer}>
-                    <Text style={styles.ratingText}>4.4</Text>
+                    <Text style={styles.ratingText}>{rating}</Text>
                 </View>
-                <Text style={styles.ratingNumberText}>56 Ratings</Text>
+                <Text style={styles.ratingNumberText}>{ratingNumber} Ratings</Text>
             </View>
             <View style={styles.mrpMainContainer}>
                 <View style={styles.mrpContainer}>
                     <Text style={styles.mrpText}>MRP</Text>
-                    <Text style={styles.mrpPriceText}>₹ 338</Text>
+                    <Text style={styles.mrpPriceText}>₹ {price}</Text>
                 </View>
-                <Text style={styles.mrpDiscountText}>10% off</Text>
+                <Text style={styles.mrpDiscountText}>{discount}% off</Text>
             </View>
             <View style={styles.finalPriceContainer}>
-            <Text style={styles.fnalPriceText}>₹ 333</Text>
-            <View style={styles.addContainer}>
-                <Text style={styles.addText}>ADD</Text>
-            </View>
+                <Text style={styles.fnalPriceText}>₹ {price - (price * (discount/100))}</Text>
+                <View style={styles.addContainer}>
+                    <Text style={styles.addText}>ADD</Text>
+                </View>
             </View>
         </View>
     );
@@ -132,7 +139,7 @@ const styles = StyleSheet.create({
     },
     mrpPriceText: {
         color: COLORS.blackDark,
-        textDecorationLine: 'line-through', 
+        textDecorationLine: 'line-through',
         textDecorationStyle: 'solid',
     },
     mrpDiscountText: {
@@ -154,7 +161,7 @@ const styles = StyleSheet.create({
         fontWeight: "700",
     },
     addContainer: {
-        height: SizeConfig.blockHeight *3,
+        height: SizeConfig.blockHeight * 3,
         width: SizeConfig.blockWidth * 10,
         backgroundColor: "#FF6F61",
         justifyContent: "center",
@@ -162,7 +169,7 @@ const styles = StyleSheet.create({
         borderRadius: 4,
     },
     addText: {
-        color:COLORS.whiteDark,
+        color: COLORS.whiteDark,
         fontSize: SizeConfig.blockHeight * 1.8,
         fontWeight: "700",
     }

@@ -4,7 +4,7 @@ import { SizeConfig } from "../../constants/size-config";
 import { COLORS } from "../../constants/colors";
 
 
-const FeaturedPopularComponent = ({ navigation, title }) => {
+const FeaturedPopularComponent = ({ navigation, name, discount }) => {
 
     return (
         <View style={styles.container}>
@@ -16,11 +16,11 @@ const FeaturedPopularComponent = ({ navigation, title }) => {
                 />
             </View>
             <View style={styles.contentContainer}>
-                <Text style={styles.title}>{title}</Text>
+                <Text style={styles.title}>{name}</Text>
             </View>
             <View style={styles.ratingMainContainer}>
                 <View style={styles.ratingContainer}>
-                    <Text style={styles.ratingText}>UP TO 10% OFF</Text>
+                    <Text style={styles.ratingText}>UP TO {discount}% OFF</Text>
                 </View>
             </View>
             
